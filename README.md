@@ -1,115 +1,38 @@
-# 🔐 AccountProvider – OAuth-Style Authentication Service (Azure Hosted)
+# AccountProvider — .NET 8 Azure Functions
 
-**AccountProvider** is a custom-built user authentication and authorization service developed with **ASP.NET Core**.  
-It acts as a lightweight **OAuth-style identity provider** that can be integrated across multiple web applications.
+An educational account service developed during my full-stack studies at EC Utbildning.
 
-🚀 This project was hosted on **Microsoft Azure** during my time at [EC Utbildning – Webbutvecklare inom .NET YH-program].
+## Implementation
 
----
+- .NET 8 isolated-worker Azure Functions (v4).
+- HTTP functions for sign-up, sign-in, and verification.
+- Function-level authorization on the HTTP entry points.
+- A separate `Data/` project with Identity and Entity Framework Core dependencies.
 
-## 🎯 Purpose
+## Structure
 
-To create a centralized login system that allows different front-end projects to authenticate users through a shared back-end.  
-This architecture improves security, consistency, and scalability.
+- `AccountProvider/Functions/`: `SignUp.cs`, `Signln.cs` (function name: `SignIn`), and `Verify.cs`.
+- `AccountProvider/Program.cs`: worker startup.
+- `AccountProvider/host.json`: Functions host settings.
+- `Data/`: data access and shared persistence code.
+- `AccountProvider.sln`: solution entry point.
 
-Use cases include:
-- Reusable login provider for portfolio sites or internal apps.
-- Practical experience in secure user handling with token-based authentication.
-- Demonstration of real-world fullstack deployment with .NET & Azure.
+## Local development
 
----
+Install the .NET 8 SDK and Azure Functions Core Tools. Supply database and required service settings locally before starting the worker.
 
-## 🧰 Tech Stack
-
-- **C# / .NET 6**
-- **ASP.NET Core MVC**
-- **Entity Framework Core**
-- **Identity + Role-based Access**
-- **Azure App Service**
-- **SQL Server (Azure)**
-- **RESTful APIs**
-
----
-
-## 🔒 Features
-
-- User registration with hashed password storage.
-- Secure login endpoint with role claims.
-- Token-based access (JWT or session-based depending on setup).
-- Database-first or code-first Entity Framework approach.
-- Admin/user role support.
-
----
-
-## 🌐 Live Deployment
-
-✅ **Hosted on Microsoft Azure App Service**  
-URL (demo): `https://your-accountprovider.azurewebsites.net` *(replace if private or add screenshot if confidential)*
-
-You can test it locally or integrate with your front-end by calling the `/api/account/login` and `/api/account/register` endpoints.
-
----
-
-## 📦 Project Structure
-
+```bash
+git clone https://github.com/Norman-Deen/AccountProvider.git
+cd AccountProvider
+dotnet restore AccountProvider.sln
+cd AccountProvider
+func start
 ```
 
-AccountProvider/
-├── Controllers/
-│   └── AccountController.cs
-├── Data/
-│   └── ApplicationDbContext.cs
-├── Models/
-│   └── User.cs
-│   └── RegisterViewModel.cs
-│   └── LoginViewModel.cs
-├── Views/
-│   └── Account/
-├── wwwroot/
-├── Program.cs
-├── Startup.cs
-└── appsettings.json
+Use the routes printed by the Functions host. Local and deployed authorization behavior depends on host configuration.
 
-````
+## Scope
 
----
+This is a coursework snapshot, not a ready-to-deploy identity platform. Review configuration and authentication requirements before adapting it.
 
-## 🧪 Getting Started Locally
-
-1. Clone the repo:
-   ```bash
-   git clone https://github.com/your-username/AccountProvider.git
-   cd AccountProvider
-````
-
-2. Set your local database connection string in `appsettings.json`.
-
-3. Run:
-
-   ```bash
-   dotnet ef database update
-   dotnet run
-   ```
-
----
-
-## 📘 What I Learned
-
-* Authentication architecture and separation of concerns.
-* Azure deployment pipeline.
-* Handling sensitive data securely in production environments.
-* Using Identity with Entity Framework in a custom way.
-
----
-
-## 📄 License
-
-This project was created as part of a school assignment at EC Utbildning.
-It is open for **educational and demonstration purposes**.
-Feel free to fork, clone, or extend it for your own portfolio.
-
----
-
-👤 Created by **Nour Altinawi** –
-.NET Fullstack Developer & 3D Visual Designer
-[LinkedIn](https://www.linkedin.com/in/nour-tinawi) • [GitHub](https://github.com/Norman-Deen)
+[Nour Altinawi — Nourtin](https://nourtin.com/) · [Current real-time 3D work](https://github.com/Norman-Deen)
